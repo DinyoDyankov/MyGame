@@ -1,5 +1,5 @@
 # MyGame
-My first console game and still working on applying OOP principles in best possible way
+My first console game and still working on applying OOP principles in best possible way.
 To implement:
    - auto resizing of the console screen/game screen
    - organaise classes into folders and subfolders
