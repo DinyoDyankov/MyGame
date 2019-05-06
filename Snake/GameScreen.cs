@@ -8,7 +8,6 @@ namespace Snake
 
         public int Width { get; } = 40;
 
-        public char TopAndBottomBorder { get; } = '=';
-        public char SideBorder { get; } = '|';
+        public string BorderType { get; } = "*";
     }
 }

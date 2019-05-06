@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Diagnostics;
+using System.Threading;
 
 namespace Snake.Contracts
 {
@@ -17,30 +17,37 @@ namespace Snake.Contracts
 
             var gameScreen = new GameScreen();
 
+            var cursorTopPosition = gameScreen.Width / 5;
+            var cursorLeftPosition = gameScreen.Height / 2 - 3;
+
             var draw = new Draw();
             
             var berry = new Berry(gameScreen, random);
 
             var snake = new Snake(gameScreen);
 
+            const int snakeSpeed = 100; //if you reduce the number the snake will go faster and if number is increased the snake will go slower
+            
             while (true)
             {
                 Console.Clear();
+
+                Console.CursorVisible = false;
+
+                draw.Screen(gameScreen.Height,gameScreen.Width, gameScreen.BorderType);
 
                 if (snake.XPosition == gameScreen.Width - 1 || snake.XPosition == 0 ||
                     snake.YPosition == gameScreen.Height - 1 || snake.YPosition == 0)
                 {
                     gameOver = true;
                 };
-
+                
                 if (berry.XPosition == snake.XPosition && berry.YPosition == snake.YPosition) // this moves the position of the berry when eaten by snake
                 {
                     score += 10;
                     berry = new Berry(gameScreen, random);
                 }
-
-                draw.Screen(gameScreen.Height,gameScreen.Width, gameScreen.TopAndBottomBorder, gameScreen.SideBorder);
-
+                
                 for (int i = 0; i < snake.Body.Count; i++)
                 {
                     draw.SnakeBody(snake.Body[i]);
@@ -58,11 +65,8 @@ namespace Snake.Contracts
                 draw.SnakeHead(snake);
                 draw.Berry(berry);
 
-                var timer = Stopwatch.StartNew();
-                while (timer.ElapsedMilliseconds <= 100)
-                {
-                    currentMovement = Movement(currentMovement);
-                }
+                Thread.Sleep(snakeSpeed);
+                currentMovement = Movement(currentMovement);
                 
                 snake.Body.Add(new Position(snake.XPosition, snake.YPosition, '#'));
 
@@ -89,13 +93,13 @@ namespace Snake.Contracts
                 if (snake.Body.Count * 10 > score)
                 {
                     snake.Body.RemoveAt (0);
-                }
-            }
+                }            }
 
-            Console.SetCursorPosition(gameScreen.Width / 5, gameScreen.Height / 2);
-            Console.WriteLine("Game is over");
-            Console.SetCursorPosition(gameScreen.Width / 5, gameScreen.Height / 2);
-            Console.WriteLine($"Your score is {score}");
+            Console.SetCursorPosition(cursorTopPosition, cursorLeftPosition);
+            Console.WriteLine("Game is over".PadLeft(18));
+            Console.SetCursorPosition(cursorTopPosition, cursorLeftPosition + 1);
+            Console.WriteLine($"Your score is {score}".PadLeft(20));
+            Console.SetCursorPosition(cursorTopPosition - 2, cursorLeftPosition + 2);
         }
 
         static Direction Movement(Direction currentMovement)

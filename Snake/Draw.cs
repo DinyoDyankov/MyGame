@@ -1,29 +1,36 @@
-﻿using System;
+﻿using System.Text;
 using static System.Console;
 
 namespace Snake
 {
     public class Draw 
     {
-        public void Screen(int height, int width, char topAndBottomBorderSymbol, char sideBorderSymbol)
+        public void Screen(int height, int width, string borderType)
         {
+            var borderBuilder = new StringBuilder(); //using string builder to reduce flickering
+
             for (int i = 0; i < width; i++)
             {
-                SetCursorPosition(i, 0);
-                Write(topAndBottomBorderSymbol);
-
-                SetCursorPosition(i, height - 1);
-                Write(topAndBottomBorderSymbol);
+                borderBuilder.Append(borderType);
             }
 
-            for (int i = 0; i < height; i++)
+            SetCursorPosition(0, 0); //sets the top border of the screen
+            Write(borderBuilder);
+
+            SetCursorPosition(0, height - 1); //sets the bottom border of the screen
+            Write(borderBuilder);
+
+            borderBuilder.Clear();
+
+            borderType = borderType.PadRight(39) + borderType;
+
+            for (int i = 1; i < height - 1; i++)
             {
-                SetCursorPosition(0,i);
-                Write(sideBorderSymbol);
-
-                SetCursorPosition(width - 1,i);
-                Write(sideBorderSymbol);
+                borderBuilder.AppendLine(borderType);
             }
+
+            SetCursorPosition(0,1); //sets the side borders of the screen
+            Write(borderBuilder);
         }
 
         public void Berry(Berry berry)
