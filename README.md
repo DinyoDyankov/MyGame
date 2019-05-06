@@ -1,6 +1,6 @@
 # MyGame
 My first console game and still working on applying OOP principles in best possible way.
-To implement:
+TODO:
    - auto resizing of the console screen/game screen
    - organaise classes into folders and subfolders
    - improve abstraction and encapsulation
