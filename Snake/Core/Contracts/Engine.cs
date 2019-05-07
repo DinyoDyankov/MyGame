@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading;
+using SnakeGame.Core.Directions;
+using SnakeGame.Entities;
 
-namespace Snake.Contracts
+namespace SnakeGame.Core.Contracts
 {
     public class Engine : IEngine
     {
@@ -51,6 +53,7 @@ namespace Snake.Contracts
                 for (int i = 0; i < snake.Body.Count; i++)
                 {
                     draw.SnakeBody(snake.Body[i]);
+
                     if (snake.Body[i].XPos == snake.XPosition && snake.Body[i].YPos == snake.YPosition)
                     {
                         gameOver = true;
@@ -93,13 +96,30 @@ namespace Snake.Contracts
                 if (snake.Body.Count * 10 > score)
                 {
                     snake.Body.RemoveAt (0);
-                }            }
+                }
+            }
 
             Console.SetCursorPosition(cursorTopPosition, cursorLeftPosition);
             Console.WriteLine("Game is over".PadLeft(18));
             Console.SetCursorPosition(cursorTopPosition, cursorLeftPosition + 1);
             Console.WriteLine($"Your score is {score}".PadLeft(20));
-            Console.SetCursorPosition(cursorTopPosition - 2, cursorLeftPosition + 2);
+            Console.SetCursorPosition(cursorTopPosition - 5, cursorLeftPosition + 2);
+            Console.WriteLine("Press any key to restart, press Esc to close.");
+
+            while (true)
+            {
+                var pressedKey = Console.ReadKey();
+
+                if (pressedKey.Key == ConsoleKey.Escape)
+                {
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    var game = new Engine();
+                    game.Run();
+                }
+            }
         }
 
         static Direction Movement(Direction currentMovement)
@@ -107,6 +127,7 @@ namespace Snake.Contracts
             if (Console.KeyAvailable)
             {
                 var key = Console.ReadKey(true).Key;
+
                 if (key == ConsoleKey.UpArrow && currentMovement != Direction.Down)
                 {
                     currentMovement = Direction.Up;

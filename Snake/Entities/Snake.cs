@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace Snake
+namespace SnakeGame.Entities
 {
     public class Snake
     {
-        private const char headSymbol = '<';
-
+        private const char HeadSymbol = '<';
+        
         public Snake(GameScreen gameScreen)
         {
             this.XPosition = gameScreen.Width / 2;
@@ -13,8 +13,8 @@ namespace Snake
             this.Body = new List<Position>();
         }
 
-        public char Head { get; internal set; } = headSymbol;
-        public List<Position> Body { get; internal set; }
+        public char Head { get; set; } = HeadSymbol;
+        public List<Position> Body { get; set; }
 
         public int XPosition { get; set; }
         public int YPosition { get; set; }

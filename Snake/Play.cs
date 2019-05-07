@@ -1,8 +1,8 @@
-﻿using Snake.Contracts;
+﻿using SnakeGame.Core.Contracts;
 
-namespace Snake
+namespace SnakeGame
 {
-    public class StartUp
+    public class Play
     {
         public static void Main()
         {

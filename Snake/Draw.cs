@@ -1,13 +1,14 @@
 ﻿using System.Text;
+using SnakeGame.Entities;
 using static System.Console;
 
-namespace Snake
+namespace SnakeGame
 {
     public class Draw 
     {
         public void Screen(int height, int width, string borderType)
         {
-            var borderBuilder = new StringBuilder(); //using string builder to reduce flickering
+            var borderBuilder = new StringBuilder(); //using stringBuilder to reduce flickering
 
             for (int i = 0; i < width; i++)
             {
@@ -40,7 +41,7 @@ namespace Snake
             SetCursorPosition (0, 0);
         }
 
-        public void SnakeHead(Snake snake)
+        public void SnakeHead(Entities.Snake snake)
         {
             SetCursorPosition (snake.XPosition, snake.YPosition);
             Write(snake.Head);

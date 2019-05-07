@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Snake
+﻿namespace SnakeGame.Entities
 {
     public class GameScreen
     {

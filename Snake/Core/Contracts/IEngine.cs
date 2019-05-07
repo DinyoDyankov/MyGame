@@ -1,4 +1,4 @@
-﻿namespace Snake.Contracts
+﻿namespace SnakeGame.Core.Contracts
 {
     public interface IEngine
     {
